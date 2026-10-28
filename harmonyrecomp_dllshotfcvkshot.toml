@@ -1,0 +1,5 @@
+# Additional function entry for Simon's projectile module.
+# Identified from harmonyrecomp_010.log.
+
+[functions]
+0x83CA1488 = {}

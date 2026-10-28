@@ -5,8 +5,8 @@ dlc/
 
 # Codegen output (derived from the game binary), local manifest with your DLC,
 # and build trees
-generated/*/
-generated/.harmonyrecomp-codegen
+/generated/*
+!/generated/rexglue.cmake
 harmonyrecomp_manifest.local.toml
 out/
 thirdparty/

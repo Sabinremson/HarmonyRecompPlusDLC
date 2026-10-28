@@ -170,15 +170,27 @@ def step_dlc() -> None:
             extract_game.extract(package_path, out_dir, require_xex=False)
             marker.write_text(stamp + "\n")
         print(f"      DLC: {package.display_name or package_path.name}")
+        
         for dll in sorted(out_dir.rglob("*")):
             if not dll.is_file() or dll.suffix.lower() != ".dll":
                 continue
+
             guest = dll.relative_to(out_dir).as_posix().lower()
+
+            # Only process DLC player character DLLs.
+            if not (
+                guest.startswith("data/player/")
+                or guest == "data/dll/shot/dllshotfcvkshot.dll"
+            ):
+                continue
+
             if guest in known:
                 continue
+
             known.add(guest)
             modules.append((guest, dll.relative_to(ROOT).as_posix(), dll.stem))
             print(f"        module {guest}")
+
 
     if not modules:
         if LOCAL_MANIFEST.exists():

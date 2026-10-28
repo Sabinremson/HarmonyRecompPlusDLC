@@ -33,6 +33,15 @@ endif()
 
 rexglue_setup_target(harmonyrecomp)
 
+
+# Workaround: reduce optimization for the source file
+# that crashes Clang 23.1.4 during compilation.
+set_source_files_properties(
+    "${CMAKE_CURRENT_SOURCE_DIR}/generated/default/harmonyrecomp_recomp.28.cpp"
+    PROPERTIES
+    COMPILE_OPTIONS "-O0"
+)
+
 # Netplay lobby service (src/netplay/udp.cpp): Winsock and adapter enumeration.
 if(WIN32)
     target_link_libraries(harmonyrecomp PRIVATE ws2_32 iphlpapi)
